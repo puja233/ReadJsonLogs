@@ -5,9 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
+/**
+ * This class creates database connection
+ */
 public class DbConnection implements Cloneable{
-    private static Logger logger = Logger.getLogger(String.valueOf(DbConnectionUtil.class));
-    private static DbConnection instance;
+    static Logger logger = Logger.getLogger(String.valueOf(DbConnection.class));
     private static Connection connection;
     private static String url = "jdbc:hsqldb:file:W:\\Projects\\IntellijProject\\ReadJsonLogs\\src\\main\\java\\com\\cs\\db/-dbname.0 EventDb";
     private static String username = "SA";
@@ -22,6 +24,11 @@ public class DbConnection implements Cloneable{
         throw new CloneNotSupportedException();
     }
 
+    /**
+     * This method instantiates database connection
+     *
+     * @return Connection instance
+     */
     private Connection instantiateConnection(){
         try {
             Class.forName("org.hsqldb.jdbc.JDBCDriver");
@@ -33,16 +40,26 @@ public class DbConnection implements Cloneable{
         }
         return this.connection;
     }
+
+    /**
+     * This method returns database connection object instance
+     *
+     * @return connection object
+     * @throws SQLException
+     */
     static synchronized public Connection getDatabaseConnectionInstance() throws SQLException {
         if (connection == null) {
-                connection = new DbConnection().instantiateConnection();
+            connection = new DbConnection().instantiateConnection();
         } else if (connection.isClosed()) {
             connection = new DbConnection().instantiateConnection();
         }
-        logger.info("Connection Instance : "+instance);
+        logger.info("Connection Instance : "+connection);
         return connection;
     }
 
+    /**
+     * This method closes database connection
+     */
     public static void closeDbConnection(){
         try {
             connection.close();
@@ -52,5 +69,4 @@ public class DbConnection implements Cloneable{
             logger.severe("Error occurred while closing Db :"+e.getMessage());
         }
     }
-
 }

@@ -1,5 +1,8 @@
 package com.cs.model;
 
+/**
+ * This is model class for event details
+ */
 public class EventDetails {
     private int id;
     private String eventId;

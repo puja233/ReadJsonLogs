@@ -2,14 +2,20 @@ package com.cs.dao;
 
 import com.cs.model.EventDetails;
 import com.cs.util.DbConnection;
-import com.cs.util.DbConnectionUtil;
-
 import java.sql.*;
-import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * This class contains queries for database
+ */
 public class DatabaseQueriesDAO {
     static Logger logger = Logger.getLogger(String.valueOf(DatabaseQueriesDAO.class));
+
+    /**
+     * This method creates table event details in database
+     *
+     * @throws SQLException
+     */
     public void createTable() throws SQLException {
         logger.info("In DatabaseQueriesDAO.createTable() : ");
         Statement stmt = null;
@@ -28,6 +34,12 @@ public class DatabaseQueriesDAO {
         logger.info("Table created : "+s);
     }
 
+    /**
+     * This method inserts row in eventdetails table
+     *
+     * @param eventDetails
+     * @throws SQLException
+     */
     public void insertData(EventDetails eventDetails) throws SQLException {
         logger.info("In DatabaseQueriesDAO.insertData() : ");
         Connection connection = DbConnection.getDatabaseConnectionInstance();
@@ -47,6 +59,11 @@ public class DatabaseQueriesDAO {
        logger.info("Insertted data");
     }
 
+    /**
+     * This method returns all the rows from eventdetails table
+     *
+     * @throws SQLException
+     */
     public void selectData() throws SQLException {
         logger.info("In DatabaseQueriesDAO.selectData() : ");
         Connection connection = DbConnection.getDatabaseConnectionInstance();
@@ -66,6 +83,12 @@ public class DatabaseQueriesDAO {
         }
     }
 
+    /**
+     * This method returns max id value from the table
+     *
+     * @return int
+     * @throws SQLException
+     */
     private int selectMaxRowCount() throws SQLException {
         logger.info("In DatabaseQueriesDAO.selectData() : ");
         Connection connection = DbConnection.getDatabaseConnectionInstance();
@@ -82,6 +105,12 @@ public class DatabaseQueriesDAO {
 
     }
 
+    /**
+     * This method deleted data for a particular id
+     *
+     * @param id int
+     * @throws SQLException
+     */
     public void deleteData(int id) throws SQLException {
         logger.info("In DatabaseQueriesDAO.insertData() : ");
         Connection connection = DbConnection.getDatabaseConnectionInstance();
